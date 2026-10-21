@@ -6,7 +6,7 @@ import {
   differenceInYears,
   format,
 } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { es } from "date-fns/locale";
 import { useState } from "react";
 import NodeManager from "../NodeManager";
 import PackageDialog from "../PackageDialog";
@@ -30,25 +30,25 @@ function PackageList(props: Props) {
   const [packageType, setPackageType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const ADD_PKG_TITLE = "Adicionar um novo pacote";
+  const ADD_PKG_TITLE = "Agregar un nuevo paquete";
   const columns = [
     {
-      title: "Nome do pacote",
+      title: "Nombre del paquete",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Número de Items",
+      title: "Número de elementos",
       dataIndex: "numberOfItems",
       key: "numberOfItems",
     },
     {
-      title: "Armazenamento (mb)",
+      title: "Almacenamiento (mb)",
       dataIndex: "totalSize",
       key: "totalSize",
     },
     {
-      title: "Tipo do pacote",
+      title: "Tipo de paquete",
       dataIndex: "packageType",
       key: "packageType",
       render: (packageType: string) => (
@@ -66,13 +66,13 @@ function PackageList(props: Props) {
       ),
     },
     {
-      title: "Criado em",
+      title: "Creado el",
       dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt: string) => format(new Date(createdAt), "dd/MM/yyyy"),
     },
     {
-      title: "Última modificação",
+      title: "Última modificación",
       dataIndex: "modifiedAt",
       key: "modifiedAt",
       render: (modifiedAt: string) => {
@@ -84,17 +84,17 @@ function PackageList(props: Props) {
         const diffInYears = differenceInYears(now, modifiedAtDate);
 
         if (diffInDays < 7) {
-          return format(modifiedAtDate, "EEEE, HH:mm", { locale: ptBR });
+          return format(modifiedAtDate, "EEEE, HH:mm", { locale: es });
         } else if (diffInDays < 30) {
-          return `${diffInWeeks} semanas atrás, ${format(
+          return `hace ${diffInWeeks} semanas, ${format(
             modifiedAtDate,
             "HH:mm",
-            { locale: ptBR }
+            { locale: es }
           )}`;
         } else if (diffInYears === 0) {
-          return `${diffInMonths} meses atrás, `;
+          return `hace ${diffInMonths} meses, `;
         } else {
-          return format(modifiedAtDate, "dd/MM/yyyy", { locale: ptBR });
+          return format(modifiedAtDate, "dd/MM/yyyy", { locale: es });
         }
       },
     },
@@ -123,7 +123,7 @@ function PackageList(props: Props) {
             variant="outlined"
             onClick={() => handleBuildPackage(pkg.fullPath, pkg.name)}
           >
-            Buildar
+            Compilar
           </Button>
           <Button
             type="default"
@@ -133,7 +133,7 @@ function PackageList(props: Props) {
               handleDeletePackage(pkg.fullPath);
             }}
           >
-            Deletar
+            Eliminar
           </Button>
         </div>
       ),
@@ -145,18 +145,18 @@ function PackageList(props: Props) {
       const result = await window.electronAPI.deletePackage(path);
 
       if (result.deleted) {
-        message.success("Package deletado com sucesso!");
+        message.success("¡Package eliminado con éxito!");
         fetchPackages();
       } else if (result.error) {
         const errorMessage =
           typeof result.error === "string"
             ? result.error
             : JSON.stringify(result.error);
-        message.error(`Erro ao deletar o pacote: ${errorMessage}`);
+        message.error(`Error al eliminar el paquete: ${errorMessage}`);
       }
     } catch (error) {
       if (error instanceof Error) {
-        message.error(`Ocorreu um erro ao deletar o pacote!`);
+        message.error(`¡Ocurrió un error al eliminar el paquete!`);
       }
     }
   }
@@ -165,18 +165,18 @@ function PackageList(props: Props) {
     try {
       const result = await window.electronAPI.buildPackage(path, name);
       if (result.wasBuilded) {
-        message.success("Package buildado com sucesso!");
+        message.success("¡Package compilado con éxito!");
         fetchPackages();
       } else if (result.error) {
         const errorMessage =
           typeof result.error === "string"
             ? result.error
             : JSON.stringify(result.error);
-        message.error(`Erro ao buildar o pacote: ${errorMessage}`);
+        message.error(`Error al compilar el paquete: ${errorMessage}`);
       }
     } catch (error) {
       if (error instanceof Error) {
-        message.error(`Ocorreu um erro ao buildar o pacote!`);
+        message.error(`¡Ocurrió un error al compilar el paquete!`);
       }
     }
   }

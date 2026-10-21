@@ -57,7 +57,7 @@ function NodeDialog(props: Props) {
       }
     } catch (error) {
       if (error instanceof Error) {
-        message.error(`Ocorreu um erro ao criar o nó!`);
+        message.error(`¡Ocurrió un error al crear el nodo!`);
       }
     }
   };
@@ -88,7 +88,7 @@ function NodeDialog(props: Props) {
   return (
     <>
       <Modal
-        title="Criar um novo nó"
+        title="Crear un nuevo nodo"
         open={isModalOpen}
         centered
         maskClosable={false}
@@ -102,7 +102,7 @@ function NodeDialog(props: Props) {
             disabled={!isInputChanged}
             onClick={handleCreateNode}
           >
-            Criar
+            Crear
           </Button>,
           <Button key="cancel" type="default" onClick={closeDialog}>
             Cancelar
@@ -117,46 +117,46 @@ function NodeDialog(props: Props) {
           initialValues={initialValues}
         >
           <Form.Item
-            label="Nome do nó"
+            label="Nombre del nodo"
             name="name"
             rules={[
               {
                 required: true,
-                message: "É obrigatório escolher o nome do nó",
+                message: "Es obligatorio elegir el nombre del nodo",
               },
             ]}
           >
-            <Input placeholder="Escolha o nome do nó" />
+            <Input placeholder="Elige el nombre del nodo" />
           </Form.Item>
           <Form.Item
-            label="Localização do nó"
+            label="Ubicación del nodo"
             name="location"
             rules={[
               {
                 required: true,
-                message: "É obrigatório escolher a localização do nó",
+                message: "Es obligatorio elegir la ubicación del nodo",
               },
             ]}
           >
             <Input
               readOnly
-              placeholder="Escolha a localizaçao do nó"
+              placeholder="Elige la ubicación del nodo"
               value={packageLocation}
             />
           </Form.Item>
           <Form.Item
-            label="Tipo do nó"
+            label="Tipo de nodo"
             name="nodeType"
             rules={[
               {
                 required: true,
-                message: "É obrigatório escolher o tipo do nó",
+                message: "Es obligatorio elegir el tipo de nodo",
               },
             ]}
           >
             <Input
               readOnly
-              placeholder="Escolha o tipo do nó"
+              placeholder="Elige el tipo de nodo"
               value={packageType}
             />
           </Form.Item>

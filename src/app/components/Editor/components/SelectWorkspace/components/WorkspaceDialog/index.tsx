@@ -61,14 +61,14 @@ function WorkspaceDialog(props: Props) {
         setWorkspaceLocationFromCreationDialog(result.workspacePath);
         setValidWorkspace(validateWorkspace.valid);
 
-        message.success("Workspace criado e build concluído!");
+        message.success("¡Workspace creado y build completado!");
         closeDialog();
       } else {
         message.error(result.error);
       }
     } catch (error) {
       if (error instanceof Error) {
-        message.error(`Ocorreu um erro ao criar o workspace! ${error.message}`);
+        message.error(`¡Ocurrió un error al crear el workspace! ${error.message}`);
       }
     }
   };
@@ -91,7 +91,7 @@ function WorkspaceDialog(props: Props) {
   return (
     <>
       <Modal
-        title="Criar um novo workspace"
+        title="Crear un nuevo workspace"
         open={isModalOpen}
         centered
         maskClosable={false}
@@ -105,7 +105,7 @@ function WorkspaceDialog(props: Props) {
             disabled={!isInputChanged}
             onClick={handleCreateWorkspace}
           >
-            Criar
+            Crear
           </Button>,
           <Button key="cancel" type="default" onClick={closeDialog}>
             Cancelar
@@ -119,22 +119,22 @@ function WorkspaceDialog(props: Props) {
           onFieldsChange={handleFieldsChange}
         >
           <Form.Item
-            label="Localização da pasta"
+            label="Ubicación de la carpeta"
             name="location"
-            rules={[{ required: true, message: "Escolha o local da pasta" }]}
+            rules={[{ required: true, message: "Elige la ubicación de la carpeta" }]}
           >
             <Input
               readOnly
               onClick={handleOpenDialog}
-              placeholder="Escolha o local do Workspace"
+              placeholder="Elige la ubicación del Workspace"
             />
           </Form.Item>
           <Form.Item
-            label="Nome do workspace"
+            label="Nombre del workspace"
             name="name"
-            rules={[{ required: true, message: "Escolha o nome da pasta" }]}
+            rules={[{ required: true, message: "Elige el nombre de la carpeta" }]}
           >
-            <Input addonAfter="_ws" placeholder="Defina o nome do Workspace" />
+            <Input addonAfter="_ws" placeholder="Define el nombre del Workspace" />
           </Form.Item>
         </Form>
       </Modal>

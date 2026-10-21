@@ -29,11 +29,11 @@ function PackageDialog(props: Props) {
     dependency: packageDependency,
   });
 
-  const ADD_PKG_TITLE = "Importar ou adicionar um novo pacote";
+  const ADD_PKG_TITLE = "Importar o agregar un nuevo paquete";
   const ADD_PKG_SUBTITLE =
-    "Você pode criar um novo pacote ou importar um pacote ROS2 via URL do GitHub";
+    "Puedes crear un nuevo paquete o importar un paquete ROS2 mediante una URL de GitHub";
   const IMPORT_BUTTON_TITLE = "Importar";
-  const CREATE_BUTTON_TITLE = "Criar";
+  const CREATE_BUTTON_TITLE = "Crear";
 
   const closeDialog = () => {
     setIsModalOpen(false);
@@ -69,7 +69,7 @@ function PackageDialog(props: Props) {
       );
 
       if (result.created) {
-        message.success("Package criado com sucesso!");
+        message.success("¡Package creado con éxito!");
         closeDialog();
         fetchPackages();
       } else if (result.error) {
@@ -77,11 +77,11 @@ function PackageDialog(props: Props) {
           typeof result.error === "string"
             ? result.error
             : JSON.stringify(result.error);
-        message.error(`Erro ao criar o pacote: ${errorMessage}`);
+        message.error(`Error al crear el paquete: ${errorMessage}`);
       }
     } catch (error) {
       if (error instanceof Error) {
-        message.error(`Ocorreu um erro ao criar o pacote!`);
+        message.error(`¡Ocurrió un error al crear el paquete!`);
       }
     }
   };
@@ -109,7 +109,7 @@ function PackageDialog(props: Props) {
       );
 
       if (result.imported) {
-        message.success("Package importado com sucesso!");
+        message.success("¡Package importado con éxito!");
         closeDialog();
         fetchPackages();
       } else if (result.error) {
@@ -117,11 +117,11 @@ function PackageDialog(props: Props) {
           typeof result.error === "string"
             ? result.error
             : JSON.stringify(result.error);
-        message.error(`Erro ao importar o pacote: ${errorMessage}`);
+        message.error(`Error al importar el paquete: ${errorMessage}`);
       }
     } catch (error) {
       if (error instanceof Error) {
-        message.error(`Ocorreu um erro ao criar o pacote!`);
+        message.error(`¡Ocurrió un error al importar el paquete!`);
       }
     }
   };
@@ -140,7 +140,7 @@ function PackageDialog(props: Props) {
   return (
     <>
       <Modal
-        title="Adicionar um novo package"
+        title="Agregar un nuevo package"
         open={isModalOpen}
         centered
         maskClosable={false}
@@ -158,7 +158,7 @@ function PackageDialog(props: Props) {
                     showCreateForm ? handleCreatePackage : handleImportPackage
                   }
                 >
-                  {showCreateForm ? "Criar" : "Importar"}
+                  {showCreateForm ? "Crear" : "Importar"}
                 </Button>,
                 <Button key="cancel" type="default" onClick={closeDialog}>
                   Cancelar
@@ -203,37 +203,37 @@ function PackageDialog(props: Props) {
           hidden={!showCreateForm}
         >
           <Form.Item
-            label="Localizaçao do pacote"
+            label="Ubicación del paquete"
             name="location"
             rules={[
               {
                 required: true,
-                message: "É obrigatório escolher a localização do pacote",
+                message: "Es obligatorio elegir la ubicación del paquete",
               },
             ]}
           >
             <Input
               readOnly
-              placeholder="Escolha o nome do pacote"
+              placeholder="Elige el nombre del paquete"
               value={packageLocation}
             />
           </Form.Item>
           <Form.Item
-            label="Nome do pacote"
+            label="Nombre del paquete"
             name="name"
             rules={[
               {
                 required: true,
-                message: "É obrigatório escolher o nome do pacote",
+                message: "Es obligatorio elegir el nombre del paquete",
               },
             ]}
           >
-            <Input placeholder="Escolha o nome do pacote" />
+            <Input placeholder="Elige el nombre del paquete" />
           </Form.Item>
           <Form.Item
-            label="Tipo do pacote"
+            label="Tipo de paquete"
             name="type"
-            rules={[{ required: true, message: "Escolha o tipo do pacote" }]}
+            rules={[{ required: true, message: "Elige el tipo de paquete" }]}
           >
             <Radio.Group
               block
@@ -243,10 +243,10 @@ function PackageDialog(props: Props) {
               onChange={(e) => setPackageDependency(e.target.value)}
             />
           </Form.Item>
-          <Form.Item label="Dependência do pacote" name="dependency">
+          <Form.Item label="Dependencia del paquete" name="dependency">
             <Input
               readOnly
-              placeholder="Escolha a dependência do pacote"
+              placeholder="Elige la dependencia del paquete"
               value={packageDependency}
             />
           </Form.Item>
@@ -259,12 +259,12 @@ function PackageDialog(props: Props) {
           hidden={!showImportForm}
         >
           <Form.Item
-            label="URL do pacote"
+            label="URL del paquete"
             name="url"
             rules={[
               {
                 required: true,
-                message: "É obrigatório preencher a URL do pacote!",
+                message: "¡Es obligatorio completar la URL del paquete!",
               },
             ]}
           >

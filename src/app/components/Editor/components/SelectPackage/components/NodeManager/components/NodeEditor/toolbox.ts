@@ -41,7 +41,7 @@ export const toolbox: ToolboxDefinition = {
     },
     {
       kind: "category",
-      name: "Repetição",
+      name: "Repetición",
       categorystyle: "loop_category",
       contents: [
         {
@@ -104,7 +104,7 @@ export const toolbox: ToolboxDefinition = {
     },
     {
       kind: "category",
-      name: "Matemática",
+      name: "Matemáticas",
       categorystyle: "math_category",
       contents: [
         {
@@ -416,7 +416,7 @@ export const toolbox: ToolboxDefinition = {
     },
     {
       kind: "category",
-      name: "Funções",
+      name: "Funciones",
       colour: "#8839ef",
       contents: [
         {
@@ -427,7 +427,7 @@ export const toolbox: ToolboxDefinition = {
     },
     {
       kind: "category",
-      name: "Classes",
+      name: "Clases",
       colour: "#40a02b",
       contents: [
         {
@@ -529,7 +529,7 @@ export const toolbox: ToolboxDefinition = {
     },
     {
       kind: "category",
-      name: "Variáveis",
+      name: "Variables",
       colour: "#e64553",
       contents: [
         {
@@ -574,7 +574,7 @@ export const toolbox: ToolboxDefinition = {
     },
     {
       kind: "category",
-      name: "Modelos",
+      name: "Plantillas",
       colour: "#5c5f77",
       contents: [
         {

@@ -18,12 +18,12 @@ export async function defineCustomBlocks() {
   const blocks = [
     {
       type: "add_class",
-      message0: "Iniciar classe %1",
+      message0: "Iniciar clase %1",
       args0: [
         {
           type: "field_input",
           name: "CLASS_NAME",
-          text: "Defina o nome da classe",
+          text: "Define el nombre de la clase",
         },
       ],
       message1: "%1",
@@ -36,22 +36,22 @@ export async function defineCustomBlocks() {
       colour: "#40a02b",
       previousStatement: null,
       nextStatement: null,
-      tooltip: "Define uma classe em Python.",
+      tooltip: "Define una clase en Python.",
       helpUrl: "",
     },
     {
       type: "add_class_inheritance",
-      message0: "Iniciar classe %1 herdando da classe %2",
+      message0: "Iniciar clase %1 heredando de la clase %2",
       args0: [
         {
           type: "field_input",
           name: "CLASS_NAME",
-          text: "Defina o nome da classe",
+          text: "Define el nombre de la clase",
         },
         {
           type: "field_input",
           name: "EXTENDS_NAME",
-          text: "Defina o nome da classe a ser herdada",
+          text: "Define el nombre de la clase a heredar",
         },
       ],
       message1: "%1",
@@ -64,7 +64,7 @@ export async function defineCustomBlocks() {
       colour: "#40a02b",
       previousStatement: null,
       nextStatement: null,
-      tooltip: "Define uma classe em Python.",
+      tooltip: "Define una clase en Python.",
       helpUrl: "",
     },
     {
@@ -74,13 +74,13 @@ export async function defineCustomBlocks() {
         {
           type: "field_input",
           name: "IMPORT_NAME",
-          text: "Defina o nome do pacote",
+          text: "Define el nombre del paquete",
         },
       ],
       colour: "#fe640b",
       previousStatement: null,
       nextStatement: null,
-      tooltip: "Importa um pacote Python",
+      tooltip: "Importa un paquete Python",
       helpUrl: "",
     },
     {
@@ -90,49 +90,49 @@ export async function defineCustomBlocks() {
         {
           type: "field_input",
           name: "IMPORT_NAME",
-          text: "Defina o nome do pacote",
+          text: "Define el nombre del paquete",
         },
         {
           type: "field_input",
           name: "ALIAS_NAME",
-          text: "Defina o nome do apelido",
+          text: "Define el nombre del alias",
         },
       ],
       colour: "#fe640b",
       previousStatement: null,
       nextStatement: null,
-      tooltip: "Importa um pacote Python",
+      tooltip: "Importa un paquete Python",
       helpUrl: "",
     },
     {
       type: "add_from_import",
-      message0: "A partir de %1 importe %2",
+      message0: "Desde %1 importar %2",
       args0: [
         {
           type: "field_input",
           name: "PACKAGE_NAME",
-          text: "Defina o nome do pacote",
+          text: "Define el nombre del paquete",
         },
         {
           type: "field_input",
           name: "METHOD_NAME",
-          text: "Defina o nome do método",
+          text: "Define el nombre del método",
         },
       ],
       colour: "#fe640b",
       previousStatement: null,
       nextStatement: null,
-      tooltip: "Importa um pacote Python",
+      tooltip: "Importa un paquete Python",
       helpUrl: "",
     },
     {
       type: "add_function",
-      message0: "Função %1",
+      message0: "Función %1",
       args0: [
         {
           type: "field_input",
           name: "FUNCTION_NAME",
-          text: "Defina o nome da função",
+          text: "Define el nombre de la función",
         },
       ],
       message1: "%1",
@@ -145,17 +145,17 @@ export async function defineCustomBlocks() {
       colour: "#8839ef",
       previousStatement: null,
       nextStatement: null,
-      tooltip: "Adicione uma função",
+      tooltip: "Agrega una función",
       helpUrl: "",
     },
     {
       type: "class_init",
-      message0: "Inicializa o construtor da classe %1",
+      message0: "Inicializa el constructor de la clase %1",
       args0: [
         {
           type: "field_input",
           name: "CLASS_NAME",
-          text: "Defina o nome da classe",
+          text: "Define el nombre de la clase",
         },
       ],
       message1: "%1",
@@ -168,17 +168,17 @@ export async function defineCustomBlocks() {
       previousStatement: null,
       nextStatement: null,
       colour: "#40a02b",
-      tooltip: "Adicione o construtor da classe",
+      tooltip: "Agrega el constructor de la clase",
       helpUrl: "",
     },
     {
       type: "node_init",
-      message0: "Configure o nó %1",
+      message0: "Configura el nodo %1",
       args0: [
         {
           type: "field_input",
           name: "NODE_NAME",
-          text: "Defina o nome do nó",
+          text: "Define el nombre del nodo",
         },
       ],
       message1: "%1",
@@ -191,48 +191,48 @@ export async function defineCustomBlocks() {
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Adicione o nó",
+      tooltip: "Agrega el nodo",
       helpUrl: "",
     },
     {
       type: "start_node",
-      message0: "Inicialize o nó da classe %1 com a função %2",
+      message0: "Inicializa el nodo de la clase %1 con la función %2",
       args0: [
         {
           type: "field_input",
           name: "CLASS_NAME",
-          text: "Defina o nome da classe",
+          text: "Define el nombre de la clase",
         },
         {
           type: "field_input",
           name: "FUNCTION_NAME",
-          text: "Defina o nome da função",
+          text: "Define el nombre de la función",
         },
       ],
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Adicione o nó",
+      tooltip: "Agrega el nodo",
       helpUrl: "",
     },
     {
       type: "init_statement",
-      message0: "Inicializa a função %1 no script",
+      message0: "Inicializa la función %1 en el script",
       args0: [
         {
           type: "field_input",
           name: "FUNCTION_NAME",
-          text: "Defina o nome da função",
+          text: "Define el nombre de la función",
         },
       ],
       previousStatement: null,
       colour: "#40a02b",
-      tooltip: "Adicione o inicializador do script",
+      tooltip: "Agrega el inicializador del script",
       helpUrl: "",
     },
     {
       type: "add_interface",
-      message0: "Importe a interface %1",
+      message0: "Importa la interfaz %1",
       args0: [
         {
           type: "field_dropdown",
@@ -243,23 +243,23 @@ export async function defineCustomBlocks() {
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Adicione uma interface ROS2",
+      tooltip: "Agrega una interfaz ROS2",
       helpUrl: "",
     },
     {
       type: "add_pub",
       message0:
-        "Adicionar publicador %1 no tópico %2 com interface %3 e taxa de atualização %4 Hz",
+        "Agregar publicador %1 en el tópico %2 con interfaz %3 y tasa de actualización %4 Hz",
       args0: [
         {
           type: "field_input",
           name: "PUB_NAME",
-          text: "Defina o nome do publicador",
+          text: "Define el nombre del publicador",
         },
         {
           type: "field_input",
           name: "TOPIC_NAME",
-          text: "Defina o nome do tópico",
+          text: "Define el nombre del tópico",
         },
         {
           type: "field_dropdown",
@@ -278,29 +278,29 @@ export async function defineCustomBlocks() {
       nextStatement: null,
       colour: "#1e66f5",
       tooltip:
-        "Define um publisher ROS com nome, interface e taxa de atualização.",
+        "Define un publisher ROS con nombre, interfaz y tasa de actualización.",
       helpUrl: "",
     },
     {
       type: "add_variable",
-      message0: "Adicione à variável %1 o valor %2",
+      message0: "Asigna a la variable %1 el valor %2",
       args0: [
         {
           type: "field_input",
           name: "VARIABLE",
-          text: "Defina o nome da variável",
+          text: "Define el nombre de la variable",
         },
         {
           type: "input_value",
           name: "VALUE",
-          text: "Defina o valor da variável",
+          text: "Define el valor de la variable",
         },
       ],
       previousStatement: null,
       nextStatement: null,
       inputsInline: true,
       colour: "#e64553",
-      tooltip: "Adicione uma variável ao script",
+      tooltip: "Agrega una variable al script",
       helpUrl: "",
     },
     {
@@ -310,13 +310,13 @@ export async function defineCustomBlocks() {
         {
           type: "field_number",
           name: "NUMERIC_VALUE",
-          text: "Defina o valor da variável",
+          text: "Define el valor de la variable",
         },
       ],
       colour: "#df8e1d",
       output: null,
       precision: 0.01,
-      tooltip: "Adicione uma variável ao script",
+      tooltip: "Agrega una variable al script",
       helpUrl: "",
     },
     {
@@ -330,7 +330,7 @@ export async function defineCustomBlocks() {
       ],
       colour: "#df8e1d",
       output: null,
-      tooltip: "Adicione uma variável ao script",
+      tooltip: "Agrega una variable al script",
       helpUrl: "",
     },
     {
@@ -340,7 +340,7 @@ export async function defineCustomBlocks() {
         {
           type: "field_dropdown",
           options: [
-            ["Verdadeiro", "True"],
+            ["Verdadero", "True"],
             ["Falso", "False"],
           ],
           name: "BOOL_VALUE",
@@ -349,7 +349,7 @@ export async function defineCustomBlocks() {
       ],
       colour: "#df8e1d",
       output: null,
-      tooltip: "Adicione uma variável ao script",
+      tooltip: "Agrega una variable al script",
       helpUrl: "",
     },
     {
@@ -360,8 +360,8 @@ export async function defineCustomBlocks() {
           type: "field_dropdown",
           options: [
             ["texto", "str"],
-            ["inteiro", "int"],
-            ["flutuante", "float"],
+            ["entero", "int"],
+            ["flotante", "float"],
             ["booleano", "bool"],
           ],
           name: "DATA_TYPE",
@@ -370,13 +370,13 @@ export async function defineCustomBlocks() {
         {
           type: "input_value",
           name: "VALUE",
-          text: "Defina o valor",
+          text: "Define el valor",
         },
       ],
       colour: "#df8e1d",
       inputsInline: true,
       output: null,
-      tooltip: "Adicione uma variável ao script",
+      tooltip: "Agrega una variable al script",
       helpUrl: "",
     },
     {
@@ -386,12 +386,12 @@ export async function defineCustomBlocks() {
         {
           type: "field_input",
           name: "LITERAL_VALUE",
-          text: "Defina o nome da váriavel",
+          text: "Define el nombre de la variable",
         },
       ],
       colour: "#df8e1d",
       output: null,
-      tooltip: "Descreve uma variável literal",
+      tooltip: "Describe una variable literal",
       helpUrl: "",
     },
     {
@@ -401,22 +401,22 @@ export async function defineCustomBlocks() {
         {
           type: "field_input",
           name: "LITERAL",
-          text: "Defina o literal",
+          text: "Define el literal",
         },
       ],
       colour: "#df8e1d",
       output: null,
-      tooltip: "Descreve um literal",
+      tooltip: "Describe un literal",
       helpUrl: "",
     },
     {
       type: "add_counter",
-      message0: `Adicione o contador a função %1 com intervalo de %2`,
+      message0: `Agrega el contador a la función %1 con intervalo de %2`,
       args0: [
         {
           type: "field_input",
           name: "FUNCTION_NAME",
-          text: "Defina o nome da função",
+          text: "Define el nombre de la función",
         },
         {
           type: "field_number",
@@ -428,12 +428,12 @@ export async function defineCustomBlocks() {
       ],
       colour: "#1e66f5",
       output: null,
-      tooltip: "Adiciona um contador com intervalo que chama uma função",
+      tooltip: "Agrega un contador con intervalo que llama a una función",
       helpUrl: "",
     },
     {
       type: "add_python_version",
-      message0: "Defina a versão %1 do Python",
+      message0: "Define la versión %1 de Python",
       args0: [
         {
           type: "field_dropdown",
@@ -451,20 +451,20 @@ export async function defineCustomBlocks() {
       ],
       colour: "#fe640b",
       nextStatement: null,
-      tooltip: "Adicione uma variável ao script",
+      tooltip: "Agrega una variable al script",
       helpUrl: "",
     },
     {
       type: "add_logger",
-      message0: "Registre %1: %2",
+      message0: "Registra %1: %2",
       args0: [
         {
           type: "field_dropdown",
           options: [
-            ["a informação", "info"],
-            ["o erro", "error"],
-            ["o aviso", "warning"],
-            ["o debug", "debug"],
+            ["la información", "info"],
+            ["el error", "error"],
+            ["la advertencia", "warning"],
+            ["el debug", "debug"],
           ],
           name: "LOG_LEVEL",
           checked: true,
@@ -472,20 +472,20 @@ export async function defineCustomBlocks() {
         {
           type: "input_value",
           name: "LOG_TEXT",
-          text: "Defina o texto que será exibido",
+          text: "Define el texto que se mostrará",
         },
       ],
       colour: "#1e66f5",
       inputsInline: true,
       previousStatement: null,
       nextStatement: null,
-      tooltip: "Adicione um registro ao nó",
+      tooltip: "Agrega un registro al nodo",
       helpUrl: "",
     },
     {
       type: "add_message",
       message0:
-        "Atribua à mensagem com interface %1, propriedade %2 o valor %3",
+        "Asigna al mensaje con interfaz %1, propiedad %2 el valor %3",
       args0: [
         {
           type: "field_dropdown",
@@ -495,40 +495,40 @@ export async function defineCustomBlocks() {
         {
           type: "field_dropdown",
           name: "PROPERTY",
-          options: [["Selecione interface primeiro", ""]],
+          options: [["Selecciona la interfaz primero", ""]],
         },
         {
           type: "input_value",
           name: "VALUE",
-          text: "Defina o nome da variável",
+          text: "Define el nombre de la variable",
         },
       ],
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Adicione uma mensagem ROS2",
+      tooltip: "Agrega un mensaje ROS2",
       helpUrl: "",
     },
     {
       type: "publish_message",
-      message0: "Publique à mensagem no %1",
+      message0: "Publica el mensaje en %1",
       args0: [
         {
           type: "field_input",
           name: "PUBLISHER_NAME",
-          text: "Defina o nome do publicador",
+          text: "Define el nombre del publicador",
         },
       ],
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Publica a mensagem no publicador",
+      tooltip: "Publica el mensaje en el publicador",
       helpUrl: "",
     },
     {
       type: "subscribe_message",
-      message0: `Atribua o valor da mensagem com a interface %1
-         e a propriedade %2 na variável %3`,
+      message0: `Asigna el valor del mensaje con la interfaz %1
+         y la propiedad %2 en la variable %3`,
       args0: [
         {
           type: "field_dropdown",
@@ -538,28 +538,28 @@ export async function defineCustomBlocks() {
         {
           type: "field_dropdown",
           name: "PROPERTY",
-          options: [["Selecione interface primeiro", ""]],
+          options: [["Selecciona la interfaz primero", ""]],
         },
         {
           type: "field_input",
           name: "VARIABLE_NAME",
-          text: "Defina o nome da variável",
+          text: "Define el nombre de la variable",
         },
       ],
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Armazena os dados da mensagem no assinante",
+      tooltip: "Almacena los datos del mensaje en el suscriptor",
       helpUrl: "",
     },
     {
       type: "add_callback_function",
-      message0: `Adicione a função de retorno %1 com a interface %2`,
+      message0: `Agrega la función de retorno %1 con la interfaz %2`,
       args0: [
         {
           type: "field_input",
           name: "FUNCTION_NAME",
-          text: "Defina o nome da função",
+          text: "Define el nombre de la función",
         },
         {
           type: "field_dropdown",
@@ -577,18 +577,18 @@ export async function defineCustomBlocks() {
       colour: "#1e66f5",
       previousStatement: null,
       nextStatement: null,
-      tooltip: "Adicione uma função de retorno de chamada",
+      tooltip: "Agrega una función de retorno de llamada",
       helpUrl: "",
     },
     {
       type: "create_timer",
       message0:
-        "Criar um temporizador %1 com intervalo %2 e publique na função %3",
+        "Crear un temporizador %1 con intervalo %2 y publicar en la función %3",
       args0: [
         {
           type: "field_input",
           name: "TEMP_NAME",
-          text: "Defina o nome do temporizador",
+          text: "Define el nombre del temporizador",
         },
         {
           type: "field_number",
@@ -605,13 +605,13 @@ export async function defineCustomBlocks() {
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Adiciona uma função contadora e publicadora",
+      tooltip: "Agrega una función contadora y publicadora",
       helpUrl: "",
     },
     {
       type: "counter_function",
       message0:
-        "Adicione a função contadora com a interface %1 e inicie o contador com o valor %2 e publique em %3",
+        "Agrega la función contadora con la interfaz %1, inicia el contador con el valor %2 y publica en %3",
       args0: [
         {
           type: "field_dropdown",
@@ -628,33 +628,33 @@ export async function defineCustomBlocks() {
         {
           type: "field_input",
           name: "PUBLISHER",
-          text: "Defina o nome do publicador",
+          text: "Define el nombre del publicador",
         },
       ],
       output: null,
       colour: "#1e66f5",
-      tooltip: "Adiciona uma função que publica o contador",
+      tooltip: "Agrega una función que publica el contador",
       helpUrl: "",
     },
     {
       type: "add_information",
-      message0: "Adicione o texto de log %1",
+      message0: "Agrega el texto de log %1",
       args0: [
         {
           type: "field_input",
           name: "LOG_INFO",
-          text: "Defina o texto que será exibido",
+          text: "Define el texto que se mostrará",
         },
       ],
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Adiciona um texto de log",
+      tooltip: "Agrega un texto de log",
       helpUrl: "",
     },
     {
       type: "add_velocity",
-      message0: "Adicione uma mensagem de velocidade %1 com o valor %2",
+      message0: "Agrega un mensaje de velocidad %1 con el valor %2",
       args0: [
         {
           type: "field_dropdown",
@@ -679,26 +679,26 @@ export async function defineCustomBlocks() {
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
-      tooltip: "Adiciona um valor de velocidade",
+      tooltip: "Agrega un valor de velocidad",
       helpUrl: "",
     },
     {
       type: "add_sub",
-      message0: `Adicionar assinante %1 
-      no tópico %2 
-      com interface %3, 
-      taxa de atualização %4 Hz 
-      e armazene os dados na %5`,
+      message0: `Agregar suscriptor %1 
+      en el tópico %2 
+      con interfaz %3, 
+      tasa de actualización %4 Hz 
+      y almacena los datos en %5`,
       args0: [
         {
           type: "field_input",
           name: "SUB_NAME",
-          text: "Defina o nome do assinante",
+          text: "Define el nombre del suscriptor",
         },
         {
           type: "field_input",
           name: "TOPIC_NAME",
-          text: "Defina o nome do tópico",
+          text: "Define el nombre del tópico",
         },
         {
           type: "field_dropdown",
@@ -715,31 +715,31 @@ export async function defineCustomBlocks() {
         {
           type: "field_input",
           name: "FUNCTION_NAME",
-          text: "Defina o nome da função",
+          text: "Define el nombre de la función",
         },
       ],
       previousStatement: null,
       nextStatement: null,
       colour: "#1e66f5",
       tooltip:
-        "Define um subscriber ROS2 com nome, interface e taxa de atualização.",
+        "Define un subscriber ROS2 con nombre, interfaz y tasa de actualización.",
       helpUrl: "",
     },
     {
       type: "init_node_template",
-      message0: `Adicione o(s) pacote(s): %1`,
+      message0: `Agrega el/los paquete(s): %1`,
       args0: [
         {
           type: "input_statement",
           name: "IMPORT_PACKAGES",
         },
       ],
-      message1: `Defina a classe %1`,
+      message1: `Define la clase %1`,
       args1: [
         {
           type: "field_input",
           name: "CLASS_NAME",
-          text: "Digite o nome da classe",
+          text: "Escribe el nombre de la clase",
         },
       ],
       message2: "%1",
@@ -749,17 +749,17 @@ export async function defineCustomBlocks() {
           name: "TEMPLATE_BODY",
         },
       ],
-      message3: "inicialize o nó da classe %1",
+      message3: "inicializa el nodo de la clase %1",
       args3: [
         {
           type: "field_input",
           name: "NODE_CLASS_NAME",
-          text: "Digite o nome da classe",
+          text: "Escribe el nombre de la clase",
         },
       ],
       colour: "#5c5f77",
       tooltip:
-        "Define um modelo de nó ROS2 com importações, classe e inicialização do nó.",
+        "Define una plantilla de nodo ROS2 con importaciones, clase e inicialización del nodo.",
       helpUrl: "",
     },
   ];
@@ -781,7 +781,7 @@ export async function defineCustomBlocks() {
       if (!propertyField) return;
 
       // Fetch properties for the selected interface (replace with your real fetch)
-      let options = [["Selecione a interface", ""]];
+      let options = [["Selecciona la interfaz", ""]];
       if (interfaceLocation) {
         // Example: replace with your async fetch
         const properties: MessageProperty[] =
@@ -792,7 +792,7 @@ export async function defineCustomBlocks() {
                 prop.name,
                 prop.property,
               ])
-            : [["Sem propriedades", ""]];
+            : [["Sin propiedades", ""]];
       }
       propertyField.menuGenerator_ = options;
       propertyField.setValue(options[0][1]);
@@ -815,7 +815,7 @@ export async function defineCustomBlocks() {
       if (!propertyField) return;
 
       // Fetch properties for the selected interface (replace with your real fetch)
-      let options = [["Selecione a interface", ""]];
+      let options = [["Selecciona la interfaz", ""]];
       if (interfaceLocation) {
         // Example: replace with your async fetch
         const properties: MessageProperty[] =
@@ -826,7 +826,7 @@ export async function defineCustomBlocks() {
                 prop.name,
                 prop.property,
               ])
-            : [["Sem propriedades", ""]];
+            : [["Sin propiedades", ""]];
       }
       propertyField.menuGenerator_ = options;
       propertyField.setValue(options[0][1]);

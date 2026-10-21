@@ -9,11 +9,11 @@ interface Props {
 }
 
 const TITLE =
-  "É necessário criar ou abrir um workspace para prosseguir com a programação!";
+  "¡Es necesario crear o abrir un workspace para continuar con la programación!";
 const SUBTITLE =
-  "Workspace é o local onde programas ROS ficam armazenados, por isso é necessário ter um workspace para armazenar-los";
-const PRIMARY_BUTTON_TITLE = "Criar um novo workspace";
-const SECONDARY_BUTTON_TITLE = "Abrir um workspace existente";
+  "El workspace es el lugar donde se almacenan los programas ROS, por eso es necesario tener un workspace para guardarlos";
+const PRIMARY_BUTTON_TITLE = "Crear un nuevo workspace";
+const SECONDARY_BUTTON_TITLE = "Abrir un workspace existente";
 
 function SelectWorkspace(props: Props) {
   const { setValidWorkspace, setWorkspacePath } = props;
@@ -27,7 +27,7 @@ function SelectWorkspace(props: Props) {
 
     if (!validateWorkspace.valid && !result.canceled) {
       message.error(
-        "Ocorreu um erro ao selecionar o workspace, a pasta não é compatível!"
+        "¡Ocurrió un error al seleccionar el workspace, la carpeta no es compatible!"
       );
     }
     setWorkspacePath(result.workspaceLocation);

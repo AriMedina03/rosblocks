@@ -34,10 +34,10 @@ function NodeManager(props: Props) {
   const [selectedNode, setSelectedNode] = useState<ROSNode>();
   const [packages, setPackages] = useState(Array<Package>);
 
-  const TITLE = `Parece que o package ${packageName} não possui nós ROS`;
+  const TITLE = `Parece que el package ${packageName} no tiene nodos ROS`;
   const SUBTITLE =
-    "Nós são programas executáveis que permitem que o robô posso atuar.";
-  const PRIMARY_BUTTON_TITLE = "Criar um novo nó";
+    "Los nodos son programas ejecutables que permiten que el robot pueda actuar.";
+  const PRIMARY_BUTTON_TITLE = "Crear un nuevo nodo";
 
   const fetchPackages = async () => {
     if (packageLocation) {
@@ -108,7 +108,7 @@ function NodeManager(props: Props) {
                 variant="outlined"
                 onClick={() => setIsModalOpen(true)}
               >
-                Criar novo nó
+                Crear nuevo nodo
               </Button>
 
               <Button
@@ -117,7 +117,7 @@ function NodeManager(props: Props) {
                 variant="outlined"
                 onClick={() => setIsPackageModalOpen(true)}
               >
-                Criar novo pacote
+                Crear nuevo paquete
               </Button>
             </div>
             <Menu mode="inline" items={menuItems} />
@@ -136,7 +136,7 @@ function NodeManager(props: Props) {
             ) : (
               <Empty
                 className="empty-message"
-                description="Nenhum nó foi selecionado, para abrir o editor é necessário selecionar um!"
+                description="No se ha seleccionado ningún nodo, ¡para abrir el editor es necesario seleccionar uno!"
               />
             )}
           </Content>

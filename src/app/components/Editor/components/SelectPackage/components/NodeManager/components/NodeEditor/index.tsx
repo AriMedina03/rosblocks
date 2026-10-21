@@ -121,14 +121,14 @@ function NodeEditor(props: Props) {
         );
 
         if (result.wasAdded) {
-          message.success("Dependências adicionadas com sucesso!");
+          message.success("¡Dependencias agregadas con éxito!");
         } else {
           message.error(result.error);
         }
       } catch (error) {
         if (error instanceof Error) {
           console.log(error);
-          message.error(`Ocorreu um erro ao adicionar a dependência!`);
+          message.error(`¡Ocurrió un error al agregar la dependencia!`);
         }
       }
     }
@@ -144,7 +144,7 @@ function NodeEditor(props: Props) {
         );
 
         if (result.created) {
-          message.success("Blocos criados com sucesso!");
+          message.success("¡Bloques creados con éxito!");
           fetchNodes(pkgLocation, pkgName);
           setSelectedNode(selectedNode);
           if (selectedNode && dependency) {
@@ -166,7 +166,7 @@ function NodeEditor(props: Props) {
       } catch (error) {
         if (error instanceof Error) {
           console.log(error);
-          message.error(`Ocorreu um erro ao criar o bloco!`);
+          message.error(`¡Ocurrió un error al crear el bloque!`);
         }
       }
     }
@@ -181,7 +181,7 @@ function NodeEditor(props: Props) {
           pkgName
         );
         if (result.wasDeleted) {
-          message.success("Nó deletado com sucesso!");
+          message.success("¡Nodo eliminado con éxito!");
           fetchNodes(pkgLocation, pkgName);
           setSelectedNode(undefined);
 
@@ -194,7 +194,7 @@ function NodeEditor(props: Props) {
                 dependency
               );
             if (removeDependencyResult.wasRemoved) {
-              message.success("Dependência removida com sucesso!");
+              message.success("¡Dependencia eliminada con éxito!");
             } else {
               message.error(removeDependencyResult.error);
             }
@@ -205,7 +205,7 @@ function NodeEditor(props: Props) {
       } catch (error) {
         if (error instanceof Error) {
           console.log(error);
-          message.error(`Ocorreu um erro ao deletar o nó!`);
+          message.error(`¡Ocurrió un error al eliminar el nodo!`);
         }
       }
     }
@@ -222,14 +222,14 @@ function NodeEditor(props: Props) {
           pkgLocation
         );
         if (result.executed) {
-          message.success("Código executado com sucesso!");
+          message.success("¡Código ejecutado con éxito!");
         } else {
           message.error(result.error);
         }
       } catch (error) {
         if (error instanceof Error) {
           console.log(error);
-          message.error(`Ocorreu um erro ao executar o código!`);
+          message.error(`¡Ocurrió un error al ejecutar el código!`);
         }
       }
     }
@@ -248,14 +248,14 @@ function NodeEditor(props: Props) {
           scriptName
         );
         if (result.wasAdded) {
-          message.success("Script adicionado com sucesso!");
+          message.success("¡Script agregado con éxito!");
         } else {
           message.error(result.error);
         }
       } catch (error) {
         if (error instanceof Error) {
           console.log(error);
-          message.error(`Ocorreu um erro ao adicionar o script!`);
+          message.error(`¡Ocurrió un error al agregar el script!`);
         }
       }
     }
@@ -271,14 +271,14 @@ function NodeEditor(props: Props) {
         packageName
       );
       if (result.wasBuilded) {
-        message.success("Pacote compilado com sucesso!");
+        message.success("¡Paquete compilado con éxito!");
       } else {
         message.error(result.error);
       }
     } catch (error) {
       if (error instanceof Error) {
         console.log(error);
-        message.error(`Ocorreu um erro ao compilar o pacote!`);
+        message.error(`¡Ocurrió un error al compilar el paquete!`);
       }
     }
   };
@@ -313,7 +313,7 @@ function NodeEditor(props: Props) {
             <Tooltip
               title={`${
                 !showBlockEditor ? "Mostrar" : "Ocultar"
-              } editor de blocos`}
+              } editor de bloques`}
             >
               <Button
                 className={showBlockEditor ? "active-button" : ""}
@@ -358,7 +358,7 @@ function NodeEditor(props: Props) {
           <h3>{selectedNode.name}</h3>
           <div className="editor-action-buttons">
             <Button variant="solid" danger onClick={handleDeleteNode}>
-              Deletar
+              Eliminar
             </Button>
             <Button
               type="primary"
@@ -366,7 +366,7 @@ function NodeEditor(props: Props) {
               variant="solid"
               onClick={handleExecuteCode}
             >
-              Executar
+              Ejecutar
             </Button>
             <Button
               type="primary"
@@ -375,7 +375,7 @@ function NodeEditor(props: Props) {
               onClick={handleSaveCode}
               disabled={!wasEdited}
             >
-              Salvar
+              Guardar
             </Button>
           </div>
         </Header>
@@ -389,7 +389,7 @@ function NodeEditor(props: Props) {
           {!showBlockEditor && !showTextEditor ? (
             <Empty
               className="empty-node-editor"
-              description="Não há editor de código selecionado"
+              description="No hay ningún editor de código seleccionado"
             />
           ) : (
             <>

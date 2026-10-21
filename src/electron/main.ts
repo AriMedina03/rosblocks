@@ -72,10 +72,10 @@ ipcMain.handle("create-workspace", async (_, workspacePath) => {
     return new Promise((resolve, reject) => {
       exec(`cd ${workspacePath} && colcon build`, (error, stdout, stderr) => {
         if (error) {
-          console.error(`Erro ao rodar colcon build: ${stderr}`);
+          console.error(`Error al ejecutar colcon build: ${stderr}`);
           reject({ created: false, error: stderr });
         } else {
-          console.log(`[BUILD]: Build concluído: ${stdout}`);
+          console.log(`[BUILD]: Build completado: ${stdout}`);
           const setupFile = `${workspacePath}/install/setup.${getShellType()}`;
           if (fs.existsSync(setupFile) && fs.statSync(setupFile).size > 0) {
             exec(
@@ -83,10 +83,10 @@ ipcMain.handle("create-workspace", async (_, workspacePath) => {
               (error, stdout, stderr) => {
                 if (error) {
                   console.error(
-                    `Erro ao rodar setup do ${workspacePath}: ${stderr}`
+                    `Error al ejecutar el setup de ${workspacePath}: ${stderr}`
                   );
                 } else {
-                  console.log(`Build do ${workspacePath} concluído: ${stdout}`);
+                  console.log(`Build de ${workspacePath} completado: ${stdout}`);
                 }
               }
             );
@@ -97,12 +97,12 @@ ipcMain.handle("create-workspace", async (_, workspacePath) => {
           }
 
           exec(
-            `${getShellType()} -c "source /opt/ros/jazzy/setup.${getShellType()}"`,
+            `${getShellType()} -c "source /opt/ros/humble/setup.${getShellType()}"`,
             (error, stdout, stderr) => {
               if (error) {
-                console.error(`Erro ao rodar build do ROS: ${stderr}`);
+                console.error(`Error al ejecutar el build de ROS: ${stderr}`);
               } else {
-                console.log(`Build do ROS concluído: ${stdout}`);
+                console.log(`Build de ROS completado: ${stdout}`);
               }
             }
           );
@@ -112,7 +112,7 @@ ipcMain.handle("create-workspace", async (_, workspacePath) => {
     });
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Erro ao criar pasta:", error);
+      console.error("Error al crear la carpeta:", error);
       return { created: false, error: error.message };
     }
   }
@@ -130,7 +130,7 @@ ipcMain.handle("validate-workspace", (_, workspacePath) => {
     return { valid: result };
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Erro ao validar o workspace", error);
+      console.error("Error al validar el workspace", error);
     }
   }
 });
@@ -182,7 +182,7 @@ ipcMain.handle("get-packages", async (_, workspacePath) => {
     return packages ?? [];
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Erro ao obter pacotes:", error);
+      console.error("Error al obtener los paquetes:", error);
       return { error: error.message };
     }
   }
@@ -451,10 +451,10 @@ ipcMain.handle(
           `cd ${workspacePath} && colcon build --packages-select ${packageName}`,
           (error, stdout, stderr) => {
             if (error) {
-              console.error(`Erro ao rodar colcon build: ${stderr}`);
+              console.error(`Error al ejecutar colcon build: ${stderr}`);
               reject({ wasBuilded: false, error: stderr });
             } else {
-              console.log(`Build concluído: ${stdout}`);
+              console.log(`Build completado: ${stdout}`);
               const setupFile = `${workspacePath}/install/setup.${getShellType()}`;
 
               if (fs.existsSync(setupFile) && fs.statSync(setupFile).size > 0) {
@@ -463,11 +463,11 @@ ipcMain.handle(
                   (error, stdout, stderr) => {
                     if (error) {
                       console.error(
-                        `Erro ao rodar setup do ${packagePath}: ${stderr}`
+                        `Error al ejecutar el setup de ${packagePath}: ${stderr}`
                       );
                     } else {
                       console.log(
-                        `Build do ${workspacePath} concluído: ${stdout}`
+                        `Build de ${workspacePath} completado: ${stdout}`
                       );
                     }
                   }
@@ -479,12 +479,12 @@ ipcMain.handle(
               }
 
               exec(
-                `${getShellType()} -c "source /opt/ros/jazzy/setup.${getShellType()}"`,
+                `${getShellType()} -c "source /opt/ros/humble/setup.${getShellType()}"`,
                 (error, stdout, stderr) => {
                   if (error) {
-                    console.error(`Erro ao rodar build do ROS: ${stderr}`);
+                    console.error(`Error al ejecutar el build de ROS: ${stderr}`);
                   } else {
-                    console.log(`Build do ROS concluído: ${stdout}`);
+                    console.log(`Build de ROS completado: ${stdout}`);
                   }
                 }
               );
@@ -822,7 +822,7 @@ ipcMain.handle(
       }
 
       // Open a new terminal window and execute the ROS node
-      const sourceSetup = `source ${setupScript} && source /opt/ros/jazzy/setup.${getShellType()}`;
+      const sourceSetup = `source ${setupScript} && source /opt/ros/humble/setup.${getShellType()}`;
       const command = `gnome-terminal -- ${getShellType()} -c "${sourceSetup} && ros2 run ${packageName} ${nodeName}; echo 'Press Enter to close'; read"`;
 
       exec(command, (error, stdout, stderr) => {

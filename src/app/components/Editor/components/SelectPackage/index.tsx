@@ -19,12 +19,12 @@ function SelectPackage(props: Props) {
   const { packages, workspaceLocation, setPackages } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectedWorkspaceName = getWorkspaceName(workspaceLocation);
-  const TITLE = `Parece que o workspace ${getWorkspaceName(
+  const TITLE = `Parece que el workspace ${getWorkspaceName(
     workspaceLocation
-  )} não possui package, para prosseguir é necessário criar um!`;
+  )} no tiene packages, ¡para continuar es necesario crear uno!`;
   const SUBTITLE =
-    "Packages são um conjunto de programas ROS ou Nodes, que juntos exercem função específica.";
-  const PRIMARY_BUTTON_TITLE = "Criar um novo package";
+    "Los packages son un conjunto de programas ROS o Nodes que, juntos, cumplen una función específica.";
+  const PRIMARY_BUTTON_TITLE = "Crear un nuevo package";
 
   useEffect(() => {
     const fetchPackages = async () => {
