@@ -944,15 +944,16 @@ ipcMain.handle("get-message-properties", async (_, interfaceName: string) => {
       const path = [...parents.map((parent) => parent.name), fieldName].join(
         "."
       );
+      const isArray = fieldType.includes("[");
 
       if (isPrimitive(fieldType)) {
         properties.push({ name: path, property: path });
       } else {
-        parents.push({
-          indentation,
-          name: fieldName,
-          isArray: fieldType.includes("["),
-        });
+        // Array of poses 
+        if (isArray) {
+          properties.push({ name: path, property: path });
+        }
+        parents.push({ indentation, name: fieldName, isArray });
       }
     });
     return properties;
