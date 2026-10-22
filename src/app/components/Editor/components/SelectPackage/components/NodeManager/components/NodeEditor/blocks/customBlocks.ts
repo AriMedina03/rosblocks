@@ -762,6 +762,21 @@ export async function defineCustomBlocks() {
         "Define una plantilla de nodo ROS2 con importaciones, clase e inicialización del nodo.",
       helpUrl: "",
     },
+    {
+      type: "execute_literal",
+      message0: "Ejecutar %1",
+      args0: [
+        {
+          type: "input_value",
+          name: "CODE",
+        },
+      ],
+      colour: "#df8e1d",
+      previousStatement: null,
+      nextStatement: null,
+      tooltip: "Ejecuta el código indicado (p. ej. llamadas a funciones).",
+      helpUrl: "",
+    },
   ];
 
   // Register the blocks using createBlockDefinitionsFromJsonArray
