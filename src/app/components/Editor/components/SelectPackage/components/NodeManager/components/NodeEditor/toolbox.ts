@@ -525,6 +525,10 @@ export const toolbox: ToolboxDefinition = {
           kind: "block",
           type: "add_velocity",
         },
+        {
+          kind: "block",
+          type: "launch_executable",
+        },
       ],
     },
     {

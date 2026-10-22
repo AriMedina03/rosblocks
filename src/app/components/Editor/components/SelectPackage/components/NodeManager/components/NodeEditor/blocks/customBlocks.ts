@@ -15,6 +15,11 @@ export async function defineCustomBlocks() {
     console.error("Failed to fetch ROS2 interfaces:", error);
   }
 
+  const executableOptions: string[][] = [
+    ["Turtlesim (GUI)", "ros2 run turtlesim turtlesim_node"],
+    ["Turtlesim Teleop", "ros2 run turtlesim turtle_teleop_key"],
+  ];
+
   const blocks = [
     {
       type: "add_class",
@@ -775,6 +780,23 @@ export async function defineCustomBlocks() {
       previousStatement: null,
       nextStatement: null,
       tooltip: "Ejecuta el código indicado (p. ej. llamadas a funciones).",
+      helpUrl: "",
+    },
+    {
+      type: "launch_executable",
+      message0: "Ejecutar %1",
+      args0: [
+        {
+          type: "field_dropdown",
+          name: "EXECUTABLE_OPTION",
+          options: executableOptions,
+        },
+      ],
+      previousStatement: null,
+      nextStatement: null,
+      colour: "#1e66f5",
+      tooltip:
+        "Ejecuta un comando externo (como turtlesim) durante la ejecución del script.",
       helpUrl: "",
     },
   ];
