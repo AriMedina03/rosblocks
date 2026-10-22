@@ -17,34 +17,34 @@ class Square(Node):
 
   def front(self):
     msg = PoseStamped()
-    msg.pose.position.x = 2.0
+    msg. = 2.0
     self.pose_pub.publish(msg)
     self.get_logger().info(str("Front"))
 
 
   def turnLeft(self):
     msg = PoseStamped()
-    msg.pose.orientation.x = 0.0
-    msg.pose.orientation.y = 0.0
-    msg.pose.orientation.z = 0.7071068
-    msg.pose.orientation.w = 0.7071068
+    msg. = 0.0
+    msg. = 0.0
+    msg. = 0.7071068
+    msg. = 0.7071068
     self.pose_pub.publish(msg)
     self.get_logger().info(str("RIGHT"))
 
 
   def turnRight(self):
     msg = PoseStamped()
-    msg.pose.orientation.x = 0.0
-    msg.pose.orientation.y = 0.0
-    msg.pose.orientation.z = -0.7071068
-    msg.pose.orientation.w = 0.7071068
+    msg. = 0.0
+    msg. = 0.0
+    msg. = -0.7071068
+    msg. = 0.7071068
     self.pose_pub.publish(msg)
     self.get_logger().info(str("LEFT"))
 
 
   def back(self):
     msg = PoseStamped()
-    msg.pose.position.x = -2.0
+    msg. = -2.0
     self.pose_pub.publish(msg)
 
 

@@ -1,0 +1,4 @@
+[console_scripts]
+hs_cuad = reto_cuadrado.hs_cuad:main
+turtle_cuad = reto_cuadrado.turtle_cuad:main
+

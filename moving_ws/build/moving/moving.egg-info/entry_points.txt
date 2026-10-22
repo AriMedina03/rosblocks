@@ -1,0 +1,4 @@
+[console_scripts]
+nodemoves = moving.nodemoves:main
+twistnode = moving.twistnode:main
+

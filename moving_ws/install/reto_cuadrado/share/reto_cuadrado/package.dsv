@@ -1,0 +1,6 @@
+source;share/reto_cuadrado/hook/pythonpath.ps1
+source;share/reto_cuadrado/hook/pythonpath.dsv
+source;share/reto_cuadrado/hook/pythonpath.sh
+source;share/reto_cuadrado/hook/ament_prefix_path.ps1
+source;share/reto_cuadrado/hook/ament_prefix_path.dsv
+source;share/reto_cuadrado/hook/ament_prefix_path.sh

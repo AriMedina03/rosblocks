@@ -21,30 +21,30 @@ class TurtleMove(Node):
 
   def side1(self):
     msg = Twist()
-    msg.linear.x = float(1)
+    msg. = float(1)
     self.pose_pub.publish(msg)
     self.get_logger().info(str("SIDE 1"))
 
 
   def side2(self):
     msg = Twist()
-    msg.angular.z = float(1.57)
-    msg.linear.x = float(1)
+    msg. = float(1.57)
+    msg. = float(1)
     self.pose_pub.publish(msg)
     self.get_logger().info(str("SIDE 2"))
 
 
   def side3(self):
     msg = Twist()
-    msg.linear.x = float(1)
+    msg. = float(1)
     self.pose_pub.publish(msg)
     self.get_logger().info(str("SIDE 3"))
 
 
   def side4(self):
     msg = Twist()
-    msg.angular.z = float(1.57)
-    msg.linear.x = float(1)
+    msg. = float(1.57)
+    msg. = float(1)
     self.pose_pub.publish(msg)
     self.get_logger().info(str("SIDE 4"))
 
