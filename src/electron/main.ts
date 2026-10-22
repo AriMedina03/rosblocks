@@ -885,68 +885,74 @@ ipcMain.handle("get-message-properties", async (_, interfaceName: string) => {
       );
     });
 
-    // Parse the interface output
+    // Parse the interface output. `ros2 interface show` prints one field per
+    // line as "<type> <name> [default]" and indents the fields of a nested
+    // message below their parent, so the indentation gives the full path
+    // (e.g. "pose.position.x" for PoseStamped).
+    const PRIMITIVE_TYPES = new Set([
+      "bool",
+      "byte",
+      "char",
+      "int8",
+      "uint8",
+      "int16",
+      "uint16",
+      "int32",
+      "uint32",
+      "int64",
+      "uint64",
+      "float32",
+      "float64",
+      "string",
+      "wstring",
+      "time",
+      "duration",
+    ]);
+    const isPrimitive = (fieldType: string) => {
+      const baseType = fieldType.replace(/\[.*\]$/, "").replace(/<=.*$/, "");
+      return PRIMITIVE_TYPES.has(baseType);
+    };
+
     const properties: { name: string; property: string }[] = [];
-    let currentParent = "";
-    let hasNestedStructure = false;
+    const parents: { indentation: number; name: string; isArray: boolean }[] =
+      [];
     const lines = output.split("\n").filter((line) => {
       const trimmed = line.trim();
       return trimmed && !trimmed.startsWith("#");
     });
 
-    // First check if the message has any indentation (nested structure)
-    hasNestedStructure = lines.some((line) => line.search(/\S|$/) > 0);
-
-    // Process each line based on whether the interface has nested structure
     lines.forEach((line) => {
       const indentation = line.search(/\S|$/);
       const parts = line.trim().split(/\s+/);
-      const propertyName = parts[parts.length - 1];
+      if (parts.length < 2) return;
+      const [fieldType, fieldName] = parts;
 
-      if (hasNestedStructure) {
-        // Handle as nested structure
-        if (indentation === 0) {
-          currentParent = propertyName;
-        } else if (currentParent) {
-          properties.push({
-            name: `${currentParent}.${propertyName}`,
-            property: `${currentParent}.${propertyName}`,
-          });
-        }
+      // Constants ("uint8 FOO=1" or "uint8 FOO = 1") are not message fields.
+      if (fieldName.includes("=") || parts[2] === "=") return;
+
+      // Leave every parent that is not an ancestor of this line.
+      while (
+        parents.length > 0 &&
+        parents[parents.length - 1].indentation >= indentation
+      ) {
+        parents.pop();
+      }
+
+      // Fields inside an array of messages cannot be addressed with a path.
+      if (parents.some((parent) => parent.isArray)) return;
+
+      const path = [...parents.map((parent) => parent.name), fieldName].join(
+        "."
+      );
+
+      if (isPrimitive(fieldType)) {
+        properties.push({ name: path, property: path });
       } else {
-        // Handle as flat structure - every property is at root level
-        // Check if it's a primitive type (not a message type definition)
-        const dataTypes = [
-          "bool",
-          "int8",
-          "uint8",
-          "int16",
-          "uint16",
-          "int32",
-          "uint32",
-          "int64",
-          "uint64",
-          "float32",
-          "float64",
-          "string",
-          "time",
-          "duration",
-        ];
-        const typePrefix = parts[0];
-
-        // Handle array types by extracting the base type
-        const baseType = typePrefix.split("[")[0];
-
-        if (
-          dataTypes.includes(baseType) ||
-          baseType.includes("string") ||
-          typePrefix.includes("string")
-        ) {
-          properties.push({
-            name: propertyName,
-            property: propertyName,
-          });
-        }
+        parents.push({
+          indentation,
+          name: fieldName,
+          isArray: fieldType.includes("["),
+        });
       }
     });
     return properties;

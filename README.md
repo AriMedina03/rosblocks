@@ -96,6 +96,20 @@ rosblocks/
 
 ### Installation
 
+## For linux users run 
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+source ~/.bashrc
+nvm install 22
+nvm use 22
+node --version   # debe mostrar v22.x
+
+cd ~/rosblocks
+rm -rf node_modules package-lock.json
+npm install
+npm run dev
+```
+
 ```bash
 # Clone the repository
 git clone https://github.com/ferssor/rosblocks.git

@@ -220,9 +220,17 @@ export function registerCustomBlocksToPython() {
     const interfaceName: string = block.getFieldValue("INTERFACE");
     const property: string = block.getFieldValue("PROPERTY");
     const value = pythonGenerator.valueToCode(block, "VALUE", 0);
+    const messageType = interfaceName.split(" ").slice(-1);
 
-    const code = `msg = ${interfaceName.split(" ").slice(-1)}()
-msg.${property} = ${value}\n`;
+    // Consecutive message blocks with the same interface share one `msg`, so
+    // several properties of a single message can be set before publishing.
+    const previousBlock = block.getPreviousBlock();
+    const continuesMessage =
+      previousBlock?.type === "add_message" &&
+      previousBlock.getFieldValue("INTERFACE") === interfaceName;
+
+    const createMessage = continuesMessage ? "" : `msg = ${messageType}()\n`;
+    const code = `${createMessage}msg.${property} = ${value}\n`;
     return code;
   };
 
@@ -330,10 +338,16 @@ pythonGenerator.forBlock["add_velocity"] = function (block: Blockly.Block) {
   const propertyName: string = block.getFieldValue("PROPERTY");
   const velocityValue: number = block.getFieldValue("VELOCITY_VALUE");
 
+  // Consecutive velocity blocks share one `msg` (e.g. linear.x + angular.z).
+  const previousBlock = block.getPreviousBlock();
+  const createMessage =
+    previousBlock?.type === "add_velocity" ? "" : "msg = Twist()\n";
+
   const code =
     propertyName && velocityValue
-      ? `msg = Twist()
-msg.${propertyName.split(" ").slice(-1)} = float(${velocityValue.toFixed(1)})\n`
+      ? `${createMessage}msg.${propertyName
+          .split(" ")
+          .slice(-1)} = float(${velocityValue.toFixed(1)})\n`
       : "";
   return code;
 };
