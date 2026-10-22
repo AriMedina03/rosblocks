@@ -1,5 +1,160 @@
 import * as Blockly from "blockly/core";
 
+const PROPERTY_PLACEHOLDER: Blockly.MenuOption[] = [
+  ["Selecciona la interfaz primero", ""],
+];
+const PROPERTY_LOADING: Blockly.MenuOption[] = [["Cargando propiedades...", ""]];
+const PROPERTY_EMPTY: Blockly.MenuOption[] = [["Sin propiedades", ""]];
+
+// Propiedades ya consultadas por interfaz (resultado de `ros2 interface show`).
+// Sirve para no repetir la consulta y para validar el valor guardado del
+// dropdown PROPERTY al reabrir un nodo.
+const propertiesCache = new Map<string, Blockly.MenuOption[]>();
+const pendingRequests = new Map<string, Promise<Blockly.MenuOption[] | null>>();
+
+function fetchPropertyOptions(
+  location: string
+): Promise<Blockly.MenuOption[] | null> {
+  const cached = propertiesCache.get(location);
+  if (cached) return Promise.resolve(cached);
+  const pending = pendingRequests.get(location);
+  if (pending) return pending;
+
+  const request = window.electronAPI
+    .getMessageProperties(location)
+    .then((properties) => {
+      const options: Blockly.MenuOption[] =
+        properties && properties.length > 0
+          ? properties.map(
+              (prop) => [prop.name, prop.property] as Blockly.MenuOption
+            )
+          : PROPERTY_EMPTY;
+      propertiesCache.set(location, options);
+      return options;
+    })
+    .catch((error) => {
+      console.error("Failed to fetch ROS2 message properties:", error);
+      return null;
+    })
+    .finally(() => pendingRequests.delete(location));
+  pendingRequests.set(location, request);
+  return request;
+}
+
+/**
+ * Dropdown de propiedades de un mensaje ROS2. Sus opciones dependen de la
+ * interfaz elegida en otro campo del mismo bloque (`interfaceField`).
+ *
+ * Un `field_dropdown` normal rechaza cualquier valor que no esté en su lista
+ * de opciones. Al abrir un nodo guardado, Blockly asigna el valor de PROPERTY
+ * antes de que se hayan consultado las propiedades de la interfaz, así que el
+ * valor guardado se descartaba. Este campo acepta el valor mientras llegan las
+ * propiedades y lo confirma (o lo reemplaza) cuando ya están disponibles.
+ */
+class FieldMessageProperty extends Blockly.FieldDropdown {
+  private interfaceField = "INTERFACE";
+  /** Valor asignado antes de conocer las propiedades de la interfaz. */
+  private pendingValue: string | null = null;
+  private requestId = 0;
+
+  constructor(interfaceField: string, config?: Blockly.FieldDropdownConfig) {
+    super(
+      function (this: Blockly.FieldDropdown) {
+        return (this as FieldMessageProperty).buildOptions();
+      },
+      undefined,
+      config
+    );
+    this.interfaceField = interfaceField;
+  }
+
+  static fromJson(
+    options: Blockly.FieldDropdownFromJsonConfig & { interfaceField?: string }
+  ): FieldMessageProperty {
+    return new FieldMessageProperty(
+      options.interfaceField ?? "INTERFACE",
+      options
+    );
+  }
+
+  private getLocation(): string {
+    return this.getSourceBlock()?.getFieldValue(this.interfaceField) ?? "";
+  }
+
+  private buildOptions(): Blockly.MenuOption[] {
+    const location = this.getLocation();
+    if (!location) return PROPERTY_PLACEHOLDER;
+    const cached = propertiesCache.get(location);
+    if (cached) return cached;
+    this.loadProperties(location);
+    const pending = this.pendingValue;
+    return pending ? [[pending, pending]] : PROPERTY_LOADING;
+  }
+
+  protected override doClassValidation_(newValue?: string): string | null {
+    if (newValue === undefined || newValue === null) return null;
+    // Las opciones dependen de la interfaz actual: no usar la caché del campo.
+    if (this.getOptions(false).some((option) => option[1] === newValue)) {
+      return newValue;
+    }
+    const location = this.getLocation();
+    if (location && !propertiesCache.has(location)) {
+      this.pendingValue = newValue;
+      this.getOptions(false);
+      return newValue;
+    }
+    return null;
+  }
+
+  /** Llamar cuando cambia la interfaz del bloque. */
+  onInterfaceChanged(): void {
+    this.pendingValue = null;
+    const options = this.getOptions(false);
+    this.setValue(options[0][1]);
+    this.forceRerender();
+  }
+
+  private loadProperties(location: string): void {
+    const requestId = ++this.requestId;
+    fetchPropertyOptions(location).then((options) => {
+      const block = this.getSourceBlock();
+      if (requestId !== this.requestId || !block || block.isDisposed()) return;
+      if (this.getLocation() !== location) return;
+      // Si falló la consulta se conserva el valor pendiente para no perderlo.
+      if (!options) return;
+
+      const wanted = this.pendingValue ?? this.getValue() ?? "";
+      this.pendingValue = null;
+      const fresh = this.getOptions(false);
+      const isValid = fresh.some((option) => option[1] === wanted);
+      this.setValue(isValid ? wanted : fresh[0][1]);
+      this.forceRerender();
+    });
+  }
+}
+
+const FIELD_MESSAGE_PROPERTY = "field_message_property";
+if (!Blockly.registry.hasItem(Blockly.registry.Type.FIELD, FIELD_MESSAGE_PROPERTY)) {
+  Blockly.fieldRegistry.register(FIELD_MESSAGE_PROPERTY, FieldMessageProperty);
+}
+
+/** Refresca el dropdown PROPERTY cuando el usuario cambia la interfaz. */
+function onInterfaceFieldChange(interfaceField: string) {
+  return function (this: Blockly.Block, event: Blockly.Events.Abstract) {
+    if (!this.workspace || this.isInFlyout) return;
+    if (
+      event.type === Blockly.Events.BLOCK_CHANGE &&
+      (event as Blockly.Events.BlockChange).blockId === this.id &&
+      (event as Blockly.Events.BlockChange).name === interfaceField
+    ) {
+      const propertyField = this.getField("PROPERTY");
+      if (propertyField instanceof FieldMessageProperty) {
+        propertyField.onInterfaceChanged();
+      }
+    }
+  };
+}
+
 export async function defineCustomBlocks() {
   let interfaceOptions: string[][] = [["-", ""]];
 
@@ -498,9 +653,9 @@ export async function defineCustomBlocks() {
           options: interfaceOptions,
         },
         {
-          type: "field_dropdown",
+          type: FIELD_MESSAGE_PROPERTY,
           name: "PROPERTY",
-          options: [["Selecciona la interfaz primero", ""]],
+          interfaceField: "INTERFACE",
         },
         {
           type: "input_value",
@@ -541,9 +696,9 @@ export async function defineCustomBlocks() {
           options: interfaceOptions,
         },
         {
-          type: "field_dropdown",
+          type: FIELD_MESSAGE_PROPERTY,
           name: "PROPERTY",
-          options: [["Selecciona la interfaz primero", ""]],
+          interfaceField: "MESSAGE_INTERFACE",
         },
         {
           type: "field_input",
@@ -803,72 +958,8 @@ export async function defineCustomBlocks() {
 
   // Register the blocks using createBlockDefinitionsFromJsonArray
   Blockly.defineBlocksWithJsonArray(blocks);
-  // After Blockly.defineBlocksWithJsonArray(blocks);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Blockly.Blocks["subscribe_message"].onchange = async function (event: any) {
-    if (!this.workspace || this.isInFlyout) return;
-    if (
-      event &&
-      event.type === Blockly.Events.BLOCK_CHANGE &&
-      event.blockId === this.id &&
-      event.name === "MESSAGE_INTERFACE"
-    ) {
-      const interfaceLocation = this.getFieldValue("MESSAGE_INTERFACE");
-      const propertyField = this.getField("PROPERTY");
-      if (!propertyField) return;
 
-      // Fetch properties for the selected interface (replace with your real fetch)
-      let options = [["Selecciona la interfaz", ""]];
-      if (interfaceLocation) {
-        // Example: replace with your async fetch
-        const properties: MessageProperty[] =
-          await window.electronAPI.getMessageProperties(interfaceLocation);
-        options =
-          properties && properties.length > 0
-            ? properties.map((prop: MessageProperty) => [
-                prop.name,
-                prop.property,
-              ])
-            : [["Sin propiedades", ""]];
-      }
-      propertyField.menuGenerator_ = options;
-      propertyField.setValue(options[0][1]);
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      propertyField.forceRerender && propertyField.forceRerender();
-    }
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Blockly.Blocks["add_message"].onchange = async function (event: any) {
-    if (!this.workspace || this.isInFlyout) return;
-    if (
-      event &&
-      event.type === Blockly.Events.BLOCK_CHANGE &&
-      event.blockId === this.id &&
-      event.name === "INTERFACE"
-    ) {
-      const interfaceLocation = this.getFieldValue("INTERFACE");
-      const propertyField = this.getField("PROPERTY");
-      if (!propertyField) return;
-
-      // Fetch properties for the selected interface (replace with your real fetch)
-      let options = [["Selecciona la interfaz", ""]];
-      if (interfaceLocation) {
-        // Example: replace with your async fetch
-        const properties: MessageProperty[] =
-          await window.electronAPI.getMessageProperties(interfaceLocation);
-        options =
-          properties && properties.length > 0
-            ? properties.map((prop: MessageProperty) => [
-                prop.name,
-                prop.property,
-              ])
-            : [["Sin propiedades", ""]];
-      }
-      propertyField.menuGenerator_ = options;
-      propertyField.setValue(options[0][1]);
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      propertyField.forceRerender && propertyField.forceRerender();
-    }
-  };
+  Blockly.Blocks["subscribe_message"].onchange =
+    onInterfaceFieldChange("MESSAGE_INTERFACE");
+  Blockly.Blocks["add_message"].onchange = onInterfaceFieldChange("INTERFACE");
 }
