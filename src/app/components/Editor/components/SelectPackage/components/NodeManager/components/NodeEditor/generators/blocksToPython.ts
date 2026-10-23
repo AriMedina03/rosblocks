@@ -219,6 +219,14 @@ export function registerCustomBlocksToPython() {
     return `${helperName}(${sanitizedCommand})\n`;
   };
 
+  pythonGenerator.forBlock["add_delay"] = function (block: Blockly.Block) {
+    const seconds = pythonGenerator.valueToCode(block, "SECONDS", 0) || "1";
+    // Sin placeholder, provideFunction_ solo agrega `import time` al inicio
+    // del script (una sola vez, aunque haya varios bloques de espera).
+    pythonGenerator.provideFunction_("import_time", "import time");
+    return `time.sleep(${seconds})\n`;
+  };
+
   pythonGenerator.forBlock["add_counter"] = function (block: Blockly.Block) {
     const functionName: string = block.getFieldValue("FUNCTION_NAME");
     const interval: number = block.getFieldValue("INTERVAL");

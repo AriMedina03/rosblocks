@@ -529,6 +529,20 @@ export const toolbox: ToolboxDefinition = {
           kind: "block",
           type: "launch_executable",
         },
+        {
+          kind: "block",
+          type: "add_delay",
+          inputs: {
+            SECONDS: {
+              shadow: {
+                type: "add_numeric_value",
+                fields: {
+                  NUMERIC_VALUE: 1,
+                },
+              },
+            },
+          },
+        },
       ],
     },
     {

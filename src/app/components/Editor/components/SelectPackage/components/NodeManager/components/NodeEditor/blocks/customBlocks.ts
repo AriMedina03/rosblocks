@@ -954,6 +954,22 @@ export async function defineCustomBlocks() {
         "Ejecuta un comando externo (como turtlesim) durante la ejecución del script.",
       helpUrl: "",
     },
+    {
+      type: "add_delay",
+      message0: "Esperar %1 segundos",
+      args0: [
+        {
+          type: "input_value",
+          name: "SECONDS",
+        },
+      ],
+      inputsInline: true,
+      previousStatement: null,
+      nextStatement: null,
+      colour: "#1e66f5",
+      tooltip: "Pausa la ejecución durante los segundos indicados.",
+      helpUrl: "",
+    },
   ];
 
   // Register the blocks using createBlockDefinitionsFromJsonArray
